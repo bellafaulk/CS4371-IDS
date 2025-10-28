@@ -1,2 +1,12 @@
-# CS4371-IDS
-CS4371: Group project for an AI-powered Intrusion Detection System (IDS)
+# AI-powered Intrusion Detection System (IDS)
+
+## Overview
+
+## Team Members
+- Angelica Barrientos
+- Jackie Medrano
+- Bella Faulk
+- Megan Botha
+- John Parsons
+
+## Features
