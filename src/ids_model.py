@@ -42,7 +42,7 @@ def detect_intrusion(sample):
     else:
         print(f"Normal activity. (Confidence: {1 - prediction:.2f})")
 
-print("\n*** Real-Time Simulation ***")
+print("\n*** REAL-TIME SIMULATION ***")
 for _ in range(5):
     random_event = np.random.rand(num_features)
     detect_intrusion(random_event)
