@@ -26,7 +26,7 @@ This project simulates an home Intrusion Detection System (IDS) with AI-powered 
 
 ### 3. Create a virtual environment
 
-  Create an isolated environment for certain dependencies.
+  Create an isolated environment for certain dependencies and activate.
   ```bash
   /Library/Frameworks/Python.framework/Versions/3.12/bin/python3 -m venv venv
   source venv/bin/activate
