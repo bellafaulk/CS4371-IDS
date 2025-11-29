@@ -6,7 +6,7 @@ This project simulates an home Intrusion Detection System (IDS) with AI-powered 
 ## Advanced Features
 * **Contextual Anomaly Detection:** The model is trained on feature-augmented data, including a historical intrusion density feature (P_avg). This is so the system can detect threats based on historical patterns over the last N time steps, not on static input.
 * **Model Robustness:** We implemented L2 regularization and dropout in the deep learning architecture to prevent overfitting and make sure the model generalizes successfully.
-* **Security Evaluation:** Our system is evaluated by security industry standard (Precision, Recall, and F1-score) and uses a fine-tuned detetcion threshold (0.30).
+* **Security Evaluation:** Our system is evaluated by security industry standard (Precision, Recall, and F1-score) and uses a fine-tuned detection threshold (0.30).
 * **Imbalanced Data Handling:** We implemented dynamic class weighting to train the model on rare intrusion events (only five percent of data), so the model can effectively include the threat class.
 * **Visualization and Logging:** Generates a confusion matrix for visual understanding and includes real-time logging of all alerts to 'intrusion_log.txt'.
 
