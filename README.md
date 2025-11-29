@@ -3,6 +3,12 @@
 ## Overview
 This project simulates an home Intrusion Detection System (IDS) with AI-powered security, utilizing a neural network to detect any anomalies in sensor data. Our project was inspired by the research completed on how AI can strengthen residential or home security systems.
 
+### Advanced Features
+* **Deep Learning Architecture:** We used a sequential machine learning model with many layers and dropout for feature extraction and normalization.
+* **Security Standardization:** Our system is evaluated by security industry standard (Precision, Recall, and F1-score) and visualized by a confusion matrix.
+* **Imbalanced Data Handling:** We implemented class weighting to train the model on rare intrusion events (only five percent of data).
+* **Fine-Tuning:** The system uses a custom detection threshold to balance alert reliability and threat detection rate.
+
 ## Team Members
 - Angelica Barrientos
 - Jackie Medrano
@@ -33,7 +39,7 @@ This project simulates an home Intrusion Detection System (IDS) with AI-powered 
   ```
 
 ### 4. Install dependencies
-  Install all required libraries and make sure pip is upgraded.
+  Install all required libraries, including visualization libraries (Matplotlib and Seaborn), and make sure pip is up to date.
   ```bash
   python3 -m pip install --upgrade pip
   python3 -m pip install -r requirements.txt
@@ -63,6 +69,6 @@ This project simulates an home Intrusion Detection System (IDS) with AI-powered 
 ### 6. Run the IDS neural network
   Run the project's main prototype.
   ```bash
-  python3 src/ids_model.py
+  python3 ids_model.py
   ```
 
