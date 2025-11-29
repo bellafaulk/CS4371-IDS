@@ -3,7 +3,7 @@
 ## Overview
 This project simulates an home Intrusion Detection System (IDS) with AI-powered security, utilizing a neural network to detect any anomalies in sensor data. Our project was inspired by the research completed on how AI can strengthen residential or home security systems.
 
-### Advanced Features
+## Advanced Features
 * **Contextual Anomaly Detection:** The model is trained on feature-augmented data, including a historical intrusion density feature (P_avg). This is so the system can detect threats based on historical patterns over the last N time steps, not on static input.
 * **Model Robustness:** We implemented L2 regularization and dropout in the deep learning architecture to prevent overfitting and make sure the model generalizes successfully.
 * **Security Evaluation:** Our system is evaluated by security industry standard (Precision, Recall, and F1-score) and uses a fine-tuned detetcion threshold (0.30).
