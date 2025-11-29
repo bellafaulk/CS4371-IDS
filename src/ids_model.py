@@ -2,38 +2,50 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns 
+import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras import regularizers
 
 
 IMBALANCE_RATIO = 0.05 # 5% intrusion, 95% normal
-num_samples = 2000 
-num_features = 6
+num_samples = 3000 
+num_features_raw = 6
+LOOKBACK_STEPS = 20
+num_features = num_features_raw + 1
 
-# generate normal data
-num_normal = int(num_samples * (1 - IMBALANCE_RATIO))
+simulation_history_buffer = np.zeros(LOOKBACK_STEPS)
 
-# using normal distribution (Gaussian) for realism
-# features clustered around mean (loc) with low variance (scale)
-X_normal = np.random.normal(loc=0.5, scale=0.1, size=(num_normal, num_features))
-y_normal = np.zeros(num_normal)
-
-# intrusion data
+# generate time-ordered data
+num_normal = int(num_samples *  (1 - IMBALANCE_RATIO))
 num_intrusion = num_samples - num_normal
 
-# creating anomalies by increasing variance
-# shift in feature-specific readings
-X_intrusion = np.random.normal(loc=0.7, scale=0.15, size=(num_intrusion, num_features))
-y_intrusion = np.ones(num_intrusion)
+X_base_normal = np.random.normal(loc=0.5, scale=0.1, size=(num_normal, num_features_raw))
+X_base_intrusion =  np.random.normal(loc=0.8, scale=0.15, size=(num_intrusion, num_features_raw))
 
-# combine and shuffle dataset
-X = np.vstack((X_normal, X_intrusion))
-y = np.hstack((y_normal, y_intrusion))
+X_time_ordered = np.vstack((X_base_normal, X_base_intrusion))
+y_time_ordered = np.hstack((np.zeros(num_normal), np.ones(num_intrusion)))
 
-# shuffle data to make sure test splits are random
+# calculate P_avg (historical augmenting)
+P_avg_list = []
+history_buffer = np.zeros(LOOKBACK_STEPS)
+
+for i in range(num_samples):
+    P_avg_val = history_buffer.mean()
+    P_avg_list.append(P_avg_val)
+
+    history_buffer = np.roll(history_buffer, -1)
+    history_buffer[-1] = y_time_ordered[i]
+
+P_avg_feature = np.array(P_avg_list).reshape(-1, 1)
+
+# combine + last shuffle
+X = np.hstack((X_time_ordered, P_avg_feature))
+y = y_time_ordered
+
 indices = np.arange(num_samples)
 np.random.shuffle(indices)
 X = X[indices]
@@ -58,9 +70,11 @@ class_weight = {0: weight_for_0, 1: weight_for_1}
 print(f"Calculated Class Weights: {class_weight}")
 
 model = Sequential([
-    Dense(64, activation='relu', input_shape=(num_features,)),
+    Dense(64, activation='relu', input_shape=(num_features,),
+          kernel_regularizer=regularizers.l2(0.001)),
     Dropout(0.2),
-    Dense(32, activation='relu'),
+    Dense(32, activation='relu', 
+          kernel_regularizer=regularizers.l2(0.001)),
     Dropout(0.2),
     Dense(16, activation='relu'),
     Dense(8, activation='relu'),
@@ -92,19 +106,34 @@ print(f"Recall (Detection Rate): {intrusion_recall:.4f}")
 print(f"Precision (Alert Reliability): {intrusion_precision:.4f}")
 print(f"F1-Score: {intrusion_f1:.4f}")
 
-
+# intrusion detection simulation with logging
 def detect_intrusion(sample):
-    """Simulate real-time intrusion detection"""
-    sample_scaled = scaler.transform([sample])
-    prediction = model.predict(sample_scaled)[0][0]
+    global simulation_history_buffer
+    P_avg_current = simulation_history_buffer.mean()
+
+    # augment the sample
+    sample_augmented = np.append(sample, P_avg_current)
+    sample_scaled = scaler.transform([sample_augmented])
+
+    # prediction
+    prediction = model.predict(sample_scaled, verbose=0)[0][0]
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # updating buffer with the new prediction
+    simulation_history_buffer = np.roll(simulation_history_buffer, -1)
+    simulation_history_buffer[-1] = prediction
+
     if prediction > 0.30:
-        print(f"ALERT: Intrusion detected (Confidence: {prediction:.2f})")
+        alert_message = f"[{timestamp}] ALERT: Intrusion detected (Confidence: {prediction:.2f})."
+        with open("intrusion_log.txt", "a") as f:
+            f.write(alert_message + "\n")
+        print(alert_message)
     else:
         print(f"Normal activity. (Confidence: {1 - prediction:.2f})")
 
 print("\n*** REAL-TIME SIMULATION ***")
 for _ in range(5):
-    random_event = np.random.rand(num_features)
+    random_event = np.random.rand(num_features_raw)
     detect_intrusion(random_event)
 
 # for visualizing/generating the confusion matrix
