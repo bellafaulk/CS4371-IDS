@@ -43,13 +43,13 @@ This project simulates an home Intrusion Detection System (IDS) with AI-powered 
 ### 4. Install dependencies
   Install all required libraries, including visualization and deep learning packages.
   ```bash
-  python3 -m pip install -r requirements.txt
+  python -m pip install -r requirements.txt
   ```
 
 ### 5. Run the IDS neural network
   Run the project's main prototype. The script trains the complex model, evaluates performance, and runs a real-time simulation.
   ```bash
-  python3 ids_model.py
+  python ids_model.py
   ```
   The system will output the Precision/Recall results and generate the IDS Condusion Matrix figure, verifying its effectiveness.
 
