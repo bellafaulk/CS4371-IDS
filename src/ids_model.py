@@ -1,7 +1,10 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 
@@ -103,3 +106,18 @@ print("\n*** REAL-TIME SIMULATION ***")
 for _ in range(5):
     random_event = np.random.rand(num_features)
     detect_intrusion(random_event)
+
+# for visualizing/generating the confusion matrix
+cm = confusion_matrix(y_test, y_pred_binary)
+
+plt.figure(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+            xticklabels=['Normal (0)', 'Intrusion (1)'],
+            yticklabels=['Normal (0)', 'Intrusion (1)'])
+plt.ylabel("Actual Class")
+plt.xlabel('Predicted Class')
+plt.title('IDS Confusion Matrix')
+plt.savefig('ids_confusion_matrix.png')
+plt.show()
+
+
