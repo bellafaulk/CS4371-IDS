@@ -1,2 +1,0 @@
-[2025-11-28 22:15:13] ALERT: Intrusion detected (Confidence: 0.61).
-[2025-11-28 22:15:13] ALERT: Intrusion detected (Confidence: 1.00).
