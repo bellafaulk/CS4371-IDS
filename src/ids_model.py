@@ -132,6 +132,21 @@ def detect_intrusion(sample):
         print(f"Normal activity. (Confidence: {1 - prediction:.2f})")
 
 print("\n*** REAL-TIME SIMULATION ***")
+# specific simulation for in-class demo, can revert later
+print("\nTesting normal activity...")
+for _ in range(2):
+    normal_event = np.random.normal(loc=0.5, scale=0.1, size=(num_features_raw))
+    detect_intrusion(normal_event)
+
+print("\nTesting intrusion detection...")
+intrusion_event = np.random.normal(loc=0.8, scale=0.15, size=(num_features_raw))
+detect_intrusion(intrusion_event)
+
+print("\nTesting random/edge case...")
+random_event = np.random.rand(num_features_raw)
+detect_intrusion(random_event)
+
+print("\nTesting extended dynamic activity...")
 for _ in range(5):
     random_event = np.random.rand(num_features_raw)
     detect_intrusion(random_event)
