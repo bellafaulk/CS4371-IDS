@@ -1,15 +1,7 @@
 # AI-powered Intrusion Detection System (IDS)
 
 ## Overview
-This project simulates an home Intrusion Detection System (IDS) with AI-powered security, utilizing a neural network to detect any anomalies in sensor data. Our project was inspired by the research completed on how AI can strengthen residential or home security systems.
-
-### Advanced Features
-* **Contextual Anomaly Detection:** The model is trained on feature-augmented data, including a historical intrusion density feature (P_avg). This is so the system can detect threats based on historical patterns over the last N time steps, not on static input.
-* **Model Robustness:** We implemented L2 regularization and dropout in the deep learning architecture to prevent overfitting and make sure the model generalizes successfully.
-* **Security Evaluation:** Our system is evaluated by security industry standard (Precision, Recall, and F1-score) and uses a fine-tuned detetcion threshold (0.30).
-* **Imbalanced Data Handling:** We implemented dynamic class weighting to train the model on rare intrusion events (only five percent of data), so the model can effectively include the threat class.
-* **Visualization and Logging:** Generates a confusion matrix for visual understanding and includes real-time logging of all alerts to 'intrusion_log.txt'.
-
+This project simulates an home Intrusion Detection System (IDS) with AI-powered security, utilizing a neural network to detect any anomalies in a dataset. Our project was inspired by the research completed on how AI can strengthen residential or home security systems.
 
 ## Team Members
 - Angelica Barrientos
@@ -17,6 +9,31 @@ This project simulates an home Intrusion Detection System (IDS) with AI-powered 
 - Bella Faulk
 - Megan Botha
 - John Parsons
+
+## Academic Lineage and Research Context
+
+This project aligns our work with the academic research and journey of Intrusion Detection Systems (IDSs).
+
+### 1. Prior Research - Foundational Bedrock
+* **Paper Title:** [Enhancing Residential Security with AI-Powered Intrusion Detection Systems](https://drive.google.com/file/d/1uJjXHR5O8E4biDnBv9fDr-hHcwK_lrRe/view)
+* **Key Contributions:** The research vouches for replacing traditional home security systems with an AI-powered IDS (Intrusion Detection System) that uses multiple data inputs (cameras, motion, doors). The main technical contribution is identifying the Convolutional Neural Network (CNN) as the best model for accurate real-time anomaly detection, which achieved 97.34% accuracy and high performance (94.24% F1-Score) on sensor patterns.
+
+### 2. Contemporary Work (Building upon Findings)
+* **Paper Title:** [Real-Time Intrusion Detection in Smart Home Environments Through Federated Deep Learning on IoT Edge Devices (2025)](https://www.researchgate.net/publication/396155650_Real-Time_Intrusion_Detection_in_Smart_Home_Environments_Through_Federated_Deep_Learning_on_IoT_Edge_Devices)
+* **Connection:** While our project establishes a central AI model for intrusion detection, this contemporary research introduces Federated Learning. It addresses the critical "future work" challenge of **data privacy** by training the AI locally on edge devices (like smart home hubs) iinstead of transmitting sensitive sensor data to a central server, building upon our goal of secure, private residential monitoring.
+
+## Functionality and System Status
+
+### Implemented Features (Working)
+* **AI-Powered IDS Core:** A deep Neural Network utilizing **TensorFlow** and **Scikit-learn** to classify sensor data as 'Normal' or 'Intrusion'.
+* **Contextual Anomaly Detection:** The model uses a calculated historical intrusion density feature ($\text{P}_{\text{avg}}$) to provide sequence-aware detection.
+* **Imbalance Handling:** Dynamic class weighting is applied during training to effectively learn from the rare $5\%$ intrusion events.
+* **Real-time Alerting & Logging:** The system provides a real-time simulation, printing alerts to the console and logging all intrusion events to `intrusion_log.txt`.
+* **Robust Evaluation:** Performance is measured using security-standard **Precision, Recall, and F1-Score**, and visualized via a **Confusion Matrix** figure saved as `ids_confusion_matrix.png`.
+
+### Non-Implemented Features (Future Work)
+* **Live Sensor Integration:** The system currently relies on synthetic data and a simulation buffer; it does not yet connect to live home security sensors (e.g., motion detectors, camera feeds).
+* **REST API:** No dedicated API endpoint exists for external applications to submit data for inference (currently executed via a single Python script).
 
 ## Project Setup and Environment
 
@@ -43,13 +60,13 @@ This project simulates an home Intrusion Detection System (IDS) with AI-powered 
 ### 4. Install dependencies
   Install all required libraries, including visualization and deep learning packages.
   ```bash
-  python3 -m pip install -r requirements.txt
+  python -m pip install -r requirements.txt
   ```
 
 ### 5. Run the IDS neural network
   Run the project's main prototype. The script trains the complex model, evaluates performance, and runs a real-time simulation.
   ```bash
-  python3 ids_model.py
+  python ids_model.py
   ```
   The system will output the Precision/Recall results and generate the IDS Condusion Matrix figure, verifying its effectiveness.
 
