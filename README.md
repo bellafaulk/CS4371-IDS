@@ -18,7 +18,7 @@ This project aligns our work with the academic research and journey of Intrusion
 * **Paper Title:** [Enhancing Residential Security with AI-Powered Intrusion Detection Systems](https://drive.google.com/file/d/1uJjXHR5O8E4biDnBv9fDr-hHcwK_lrRe/view)
 * **Key Contributions:** The research vouches for replacing traditional home security systems with an AI-powered IDS (Intrusion Detection System) that uses multiple data inputs (cameras, motion, doors). The main technical contribution is identifying the Convolutional Neural Network (CNN) as the best model for accurate real-time anomaly detection, which achieved 97.34% accuracy and high performance (94.24% F1-Score) on sensor patterns.
 
-### 2. Contemporary Work (Building upon Findings)
+### 2. Contemporary Work - Building upon Findings
 * **Paper Title:** [Real-Time Intrusion Detection in Smart Home Environments Through Federated Deep Learning on IoT Edge Devices (2025)](https://www.researchgate.net/publication/396155650_Real-Time_Intrusion_Detection_in_Smart_Home_Environments_Through_Federated_Deep_Learning_on_IoT_Edge_Devices)
 * **Connection:** While our project establishes a central AI model for intrusion detection, this contemporary research introduces Federated Learning. It addresses the critical "future work" challenge of **data privacy** by training the AI locally on edge devices (like smart home hubs) iinstead of transmitting sensitive sensor data to a central server, building upon our goal of secure, private residential monitoring.
 
