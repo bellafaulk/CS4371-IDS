@@ -20,7 +20,7 @@ This project aligns our work with the academic research and journey of Intrusion
 
 ### 2. Contemporary Work - Building upon Findings
 * **Paper Title:** [Real-Time Intrusion Detection in Smart Home Environments Through Federated Deep Learning on IoT Edge Devices (2025)](https://www.researchgate.net/publication/396155650_Real-Time_Intrusion_Detection_in_Smart_Home_Environments_Through_Federated_Deep_Learning_on_IoT_Edge_Devices)
-* **Connection:** While our project establishes a central AI model for intrusion detection, this contemporary research introduces Federated Learning. It addresses the critical "future work" challenge of **data privacy** by training the AI locally on edge devices (like smart home hubs) iinstead of transmitting sensitive sensor data to a central server, building upon our goal of secure, private residential monitoring.
+* **Connection:** While our project establishes a central AI model for intrusion detection, this contemporary research introduces **federated learning**. It addresses the critical "future work" challenge of **data privacy** by training the AI locally on edge devices (like smart home hubs) iinstead of transmitting sensitive sensor data to a central server, building upon our goal of secure, private residential monitoring.
 
 ## Functionality and System Status
 
