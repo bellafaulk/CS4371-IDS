@@ -3,20 +3,34 @@
 ## Overview
 This project simulates an home Intrusion Detection System (IDS) with AI-powered security, utilizing a neural network to detect any anomalies in a dataset. Our project was inspired by the research completed on how AI can strengthen residential or home security systems.
 
-## Advanced Features
-* **Contextual Anomaly Detection:** The model is trained on feature-augmented data, including a historical intrusion density feature (P_avg). This is so the system can detect threats based on historical patterns over the last N time steps, not on static input.
-* **Model Robustness:** We implemented L2 regularization and dropout in the deep learning architecture to prevent overfitting and make sure the model generalizes successfully.
-* **Security Evaluation:** Our system is evaluated by security industry standard (Precision, Recall, and F1-score) and uses a fine-tuned detection threshold (0.30).
-* **Imbalanced Data Handling:** We implemented dynamic class weighting to train the model on rare intrusion events (only five percent of data), so the model can effectively include the threat class.
-* **Visualization and Logging:** Generates a confusion matrix for visual understanding and includes real-time logging of all alerts to 'intrusion_log.txt'.
-
-
 ## Team Members
 - Angelica Barrientos
 - Jackie Medrano
 - Bella Faulk
 - Megan Botha
 - John Parsons
+
+## Academic Lineage and Research Context
+
+This project aligns our work with the academic evolution of Intrusion Detection Systems (IDSs).
+
+### 1. Paper Chosen - Prior Research
+This paper served as the direct inspiration and foundational blueprint for our approach, validating the shift from traditional security to AI-based anomaly detection:
+
+* **Paper Title:** Enhancing Residential Security with AI-Powered Intrusion Detection Systems
+
+## Functionality and System Status
+
+### Implemented Features (Working)
+* **AI-Powered IDS Core:** A deep Neural Network utilizing **TensorFlow** and **Scikit-learn** to classify sensor data as 'Normal' or 'Intrusion'.
+* **Contextual Anomaly Detection:** The model uses a calculated historical intrusion density feature ($\text{P}_{\text{avg}}$) to provide sequence-aware detection.
+* **Imbalance Handling:** Dynamic class weighting is applied during training to effectively learn from the rare $5\%$ intrusion events.
+* **Real-time Alerting & Logging:** The system provides a real-time simulation, printing alerts to the console and logging all intrusion events to `intrusion_log.txt`.
+* **Robust Evaluation:** Performance is measured using security-standard **Precision, Recall, and F1-Score**, and visualized via a **Confusion Matrix** figure saved as `ids_confusion_matrix.png`.
+
+### Non-Implemented Features (Future Work)
+* **Live Sensor Integration:** The system currently relies on synthetic data and a simulation buffer; it does not yet connect to live home security sensors (e.g., motion detectors, camera feeds).
+* **REST API:** No dedicated API endpoint exists for external applications to submit data for inference (currently executed via a single Python script).
 
 ## Project Setup and Environment
 
