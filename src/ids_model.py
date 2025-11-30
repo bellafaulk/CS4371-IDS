@@ -10,11 +10,26 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras import regularizers
 
+# defining here instead of hardcoding
+CONFIG = {
+    'IMBALANCE_RATIO': 0.05, # 5% intrusion, 95% normal
+    'NUM_SAMPLES': 3000,
+    'RANDOM_SEED': 42,
+    'NUM_RAW_FEATURES': 6,
+    'TEST_SIZE': 0.2,
+    'LOOKBACK_STEPS': 20,
+    'EPOCHS': 15,
+    'BATCH_SIZE': 16,
+    'L2_REG_STRENGTH': 0.001,
+    'DROPOUT_RATE': 0.2,
+    'THRESHOLD': 0.30,
+}
 
-IMBALANCE_RATIO = 0.05 # 5% intrusion, 95% normal
-num_samples = 3000 
-num_features_raw = 6
-LOOKBACK_STEPS = 20
+np.random.seed(CONFIG['RANDOM_SEED'])
+IMBALANCE_RATIO = CONFIG['IMBALANCE_RATIO']
+num_samples = CONFIG['NUM_SAMPLES']
+num_features_raw = CONFIG['NUM_RAW_FEATURES']
+LOOKBACK_STEPS = CONFIG['LOOKBACK_STEPS']
 num_features = num_features_raw + 1
 
 simulation_history_buffer = np.zeros(LOOKBACK_STEPS)
@@ -51,7 +66,11 @@ np.random.shuffle(indices)
 X = X[indices]
 y = y[indices]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, 
+    test_size=CONFIG['TEST_SIZE'], 
+    random_state=CONFIG['RANDOM_SEED']
+)
 
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
@@ -71,11 +90,11 @@ print(f"Calculated Class Weights: {class_weight}")
 
 model = Sequential([
     Dense(64, activation='relu', input_shape=(num_features,),
-          kernel_regularizer=regularizers.l2(0.001)),
-    Dropout(0.2),
-    Dense(32, activation='relu', 
-          kernel_regularizer=regularizers.l2(0.001)),
-    Dropout(0.2),
+          kernel_regularizer=regularizers.l2(CONFIG['L2_REG_STRENGTH'])),
+    Dropout(CONFIG['DROPOUT_RATE']),
+    Dense(32, activation='relu',
+          kernel_regularizer=regularizers.l2(CONFIG['L2_REG_STRENGTH'])),
+    Dropout(CONFIG['DROPOUT_RATE']),
     Dense(16, activation='relu'),
     Dense(8, activation='relu'),
     Dense(1, activation='sigmoid')
@@ -84,7 +103,14 @@ model = Sequential([
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 print("Training IDS model...")
-model.fit(X_train, y_train, epochs=15, batch_size=16, verbose=1, validation_split=0.2, class_weight=class_weight)
+model.fit(
+    X_train, y_train, 
+    epochs=CONFIG['EPOCHS'], 
+    batch_size=CONFIG['BATCH_SIZE'], 
+    verbose=1, 
+    validation_split=0.2, 
+    class_weight=class_weight
+)
 
 loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
 from sklearn.metrics import precision_score, recall_score, f1_score
@@ -93,7 +119,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 y_pred_prob = model.predict(X_test, verbose=0)
 
 # instead of probabilities --> binary predictions
-THRESHOLD = 0.30
+THRESHOLD = CONFIG['THRESHOLD']
 y_pred_binary = (y_pred_prob > THRESHOLD).astype(int)
 
 # calculate and print new metrics
@@ -123,7 +149,7 @@ def detect_intrusion(sample):
     simulation_history_buffer = np.roll(simulation_history_buffer, -1)
     simulation_history_buffer[-1] = prediction
 
-    if prediction > 0.30:
+    if prediction > CONFIG['THRESHOLD']:
         alert_message = f"[{timestamp}] ALERT: Intrusion detected (Confidence: {prediction:.2f})."
         with open("intrusion_log.txt", "a") as f:
             f.write(alert_message + "\n")
@@ -132,6 +158,21 @@ def detect_intrusion(sample):
         print(f"Normal activity. (Confidence: {1 - prediction:.2f})")
 
 print("\n*** REAL-TIME SIMULATION ***")
+# specific simulation for in-class demo, can revert later
+print("\nTesting normal activity...")
+for _ in range(2):
+    normal_event = np.random.normal(loc=0.5, scale=0.1, size=(num_features_raw))
+    detect_intrusion(normal_event)
+
+print("\nTesting intrusion detection...")
+intrusion_event = np.random.normal(loc=0.8, scale=0.15, size=(num_features_raw))
+detect_intrusion(intrusion_event)
+
+print("\nTesting random/edge case...")
+random_event = np.random.rand(num_features_raw)
+detect_intrusion(random_event)
+
+print("\nTesting extended dynamic activity...")
 for _ in range(5):
     random_event = np.random.rand(num_features_raw)
     detect_intrusion(random_event)
