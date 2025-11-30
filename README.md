@@ -25,15 +25,15 @@ This project aligns our work with the academic research and journey of Intrusion
 ## Functionality and System Status
 
 ### Implemented Features (Working)
-* **AI-Powered IDS Core:** A deep Neural Network utilizing **TensorFlow** and **Scikit-learn** to classify sensor data as 'Normal' or 'Intrusion'.
+* **AI-Powered IDS Core:** A deep Neural Network utilizing TensorFlow and Scikit-learn to classify sensor data as 'Normal' or 'Intrusion'.
 * **Contextual Anomaly Detection:** The model uses a calculated historical intrusion density feature ($\text{P}_{\text{avg}}$) to provide sequence-aware detection.
 * **Imbalance Handling:** Dynamic class weighting is applied during training to effectively learn from the rare $5\%$ intrusion events.
 * **Real-time Alerting & Logging:** The system provides a real-time simulation, printing alerts to the console and logging all intrusion events to `intrusion_log.txt`.
-* **Robust Evaluation:** Performance is measured using security-standard **Precision, Recall, and F1-Score**, and visualized via a **Confusion Matrix** figure saved as `ids_confusion_matrix.png`.
+* **Robust Evaluation:** Performance is measured using security standard regulation (Precision, Recall, and F1-Score), and visualized with a Confusion Matrix figure saved as `ids_confusion_matrix.png`.
 
 ### Non-Implemented Features (Future Work)
 * **Live Sensor Integration:** The system currently relies on synthetic data and a simulation buffer; it does not yet connect to live home security sensors (e.g., motion detectors, camera feeds).
-* **REST API:** No dedicated API endpoint exists for external applications to submit data for inference (currently executed via a single Python script).
+* **REST API:** No dedicated API endpoint exists for external applications to submit data (only executed via a single Python script).
 
 ## Project Setup and Environment
 
