@@ -33,7 +33,6 @@ This project aligns our work with the academic research and journey of Intrusion
 
 ### Non-Implemented Features (Future Work)
 * **Live Sensor Integration:** The system currently relies on synthetic data and a simulation buffer; it does not yet connect to live home security sensors (e.g., motion detectors, camera feeds).
-* **REST API:** No dedicated API endpoint exists for external applications to submit data (only executed via a single Python script).
 
 ## Project Setup and Environment
 
