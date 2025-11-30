@@ -15,9 +15,7 @@ This project simulates an home Intrusion Detection System (IDS) with AI-powered 
 This project aligns our work with the academic research and journey of Intrusion Detection Systems (IDSs).
 
 ### 1. Prior Research - Foundational Bedrock
-This paper served as the direct inspiration and foundational blueprint for our approach, validating the shift from traditional security to AI-based anomaly detection:
-
-* **Paper Title:** Enhancing Residential Security with AI-Powered Intrusion Detection Systems
+* **Paper Title:** [Enhancing Residential Security with AI-Powered Intrusion Detection Systems](https://drive.google.com/file/d/1uJjXHR5O8E4biDnBv9fDr-hHcwK_lrRe/view)
 * **Key Contributions:** The research vouches for replacing traditional home security systems with an AI-powered IDS (Intrusion Detection System) that uses multiple data inputs (cameras, motion, doors). The main technical contribution is identifying the Convolutional Neural Network (CNN) as the best model for accurate real-time anomaly detection, which achieved 97.34% accuracy and high performance (94.24% F1-Score) on sensor patterns.
 
 ### 2. Contemporary Work (Building upon Findings)
