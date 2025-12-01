@@ -16,23 +16,23 @@ This project aligns our work with the academic research and journey of Intrusion
 
 ### 1. Prior Research - Foundational Bedrock
 * **Paper Title:** [Enhancing Residential Security with AI-Powered Intrusion Detection Systems](https://drive.google.com/file/d/1uJjXHR5O8E4biDnBv9fDr-hHcwK_lrRe/view)
-* **Key Contributions:** The research vouches for replacing traditional home security systems with an AI-powered IDS (Intrusion Detection System) that uses multiple data inputs (cameras, motion, doors). The main technical contribution is identifying the Convolutional Neural Network (CNN) as the best model for accurate real-time anomaly detection, which achieved 97.34% accuracy and high performance (94.24% F1-Score) on sensor patterns.
+* **Key Contributions:** This research vouches for replacing traditional home security systems with an AI-powered IDS (Intrusion Detection System) that uses multiple data inputs (cameras, motion, doors). The main technical contribution is identifying the Convolutional Neural Network (CNN) as the best model for accurate real-time anomaly detection, which achieved 97.34% accuracy and high performance (94.24% F1-Score) on sensor patterns.
 
 ### 2. Contemporary Work - Building upon Findings
 * **Paper Title:** [Real-Time Intrusion Detection in Smart Home Environments Through Federated Deep Learning on IoT Edge Devices (2025)](https://www.researchgate.net/publication/396155650_Real-Time_Intrusion_Detection_in_Smart_Home_Environments_Through_Federated_Deep_Learning_on_IoT_Edge_Devices)
-* **Connection:** While our project establishes a central AI model for intrusion detection, this contemporary research introduces **federated learning**. It addresses the critical "future work" challenge of **data privacy** by training the AI locally on edge devices (like smart home hubs) instead of transmitting sensitive sensor data to a central server, building upon our goal of secure, private residential monitoring.
+* **Connection:** While our project establishes a central AI model for intrusion detection, this contemporary research introduces **federated learning**. It addresses the challenge of **data privacy** by training the AI locally on edge devices (like smart home hubs) instead of transmitting sensitive data to only one central server, building upon our goal of secure, private residential monitoring.
 
 ## Functionality and System Status
 
 ### Implemented Features (Working)
 * **AI-Powered IDS Core:** A deep Neural Network utilizing TensorFlow and Scikit-learn to classify sensor data as 'Normal' or 'Intrusion'.
-* **Contextual Anomaly Detection:** The model uses a calculated historical intrusion density feature ($\text{P}_{\text{avg}}$) to provide sequence-aware detection.
-* **Imbalance Handling:** Dynamic class weighting is applied during training to effectively learn from the rare $5\%$ intrusion events.
+* **Contextual Anomaly Detection:** The model uses a calculated historical intrusion density feature `P_avg` to provide contextual detection.
+* **Imbalance Handling:** Dynamic class weighting is applied during training to effectively learn from the rare intrusion events.
 * **Real-time Alerting & Logging:** The system provides a real-time simulation, printing alerts to the console and logging all intrusion events to `intrusion_log.txt`.
 * **Robust Evaluation:** Performance is measured using security standard regulation (Precision, Recall, and F1-Score), and visualized with a confusion matrix figure saved as `ids_confusion_matrix.png`.
 
 ### Non-Implemented Features (Future Work)
-* **Live Sensor Integration:** The system currently relies on synthetic data and a simulation buffer; it does not yet connect to live home security sensors (e.g., motion detectors, camera feeds).
+* **Live Sensor Integration:** The system currently relies on synthetic data and a simulation buffer, but it does not yet connect to live home security sensors (e.g., motion detectors, camera feeds).
 
 ## Project Setup and Environment
 
